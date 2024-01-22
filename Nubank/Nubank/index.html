@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartão Nubank</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="principal">
+        <div class="conteudo">
+            <div class="cabecalho">
+                <div class="box-img">
+                    <img src="imagens/mastercard_logo.png" alt="Mastercard"/>
+                    <img src="imagens/chip.png" alt="chip"/>
+                </div>
+            </div>
+            <div class="rodape">
+                <p>Jhully S Santos</p>
+                <img src="imagens/nubank_logo.png" alt="Nubank"/>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+   const cartao = document.querySelector('.principal')
+   cartao.addEventListener('mousemove', cartaoEfeitos)
+   cartao.addEventListener('mouseleave', cartaoBack)
+   cartao.addEventListener('mouseenter', cartaoEnter)
+   
+   function cartaoEfeitos(event){
+        const larguraCartao = cartao.offsetWidth
+        const alturaCartao = cartao.offsetHeight 
+
+        const centroX = cartao.offsetLeft + larguraCartao/2
+        const centroY = cartao.offsetTop + alturaCartao/2
+
+        const posicaoX = event.clientX - centroX
+        const posicaoY = event.clientY - centroY
+
+        const rotacaoX = ((+1)*25*posicaoY/(alturaCartao/2))
+        const rotacaoY = ((-1)*25*posicaoX/(larguraCartao/2))
+
+        cartao.style.transform = `perspective(500px) rotateX(${rotacaoX}deg) rotateY(${rotacaoY}deg)`
+   }
+
+   function cartaoBack(event){
+        cartao.style.transform = `perspective(500px) rotateX(0deg) rotateY(0deg)`
+        cartaoTransicao();
+   }
+
+   function cartaoTransicao(){
+        cartao.style.transition = 'transform 400ms'
+        setTimeout(() => {
+            cartao.style.transition = ''
+        }, 400)
+   }
+
+   function cartaoEnter(event){
+        cartaoTransicao()
+   }
+</script>
+</html>
